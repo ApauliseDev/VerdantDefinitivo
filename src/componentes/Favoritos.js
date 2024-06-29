@@ -41,9 +41,9 @@ function Favoritos() {
   const [watchedListOn, setwatchedListOn] =useState(false)
   const [favoritesListOn, setfavoritesListOn] =useState(false)
   
-  const [porver, setPorver] = useState([]);
- const [vistas, setVistas] = useState([]);
- const [favoritas, setFavoritas] = useState([]);
+  const [porver, setPorver] = useState([""]);
+ const [vistas, setVistas] = useState([""]);
+ const [favoritas, setFavoritas] = useState([""]);
 
 
 
@@ -69,8 +69,6 @@ function Favoritos() {
 
 const fetchMoviesByList = async (listName, setState) => {
 
-  
-
   try {
     const user = JSON.parse(localStorage.getItem('account'));
     if (!user || !user.id) {
@@ -85,9 +83,10 @@ const fetchMoviesByList = async (listName, setState) => {
       }
     });
 
-    const movies = response.data.movies;
+    const movies = response.data;
+    console.log(movies)
     let moviesWithDetails = [];
-
+   
     for (let movie of movies) {
       try {
         const tmdbId = movie.tmdbId;
@@ -104,8 +103,10 @@ const fetchMoviesByList = async (listName, setState) => {
         console.error('Error fetching movie details:', error);
       }
     }
-
+     
+    console.log(moviesWithDetails)
     setState(moviesWithDetails);
+    return moviesWithDetails; 
   } catch (error) {
     console.error('Error fetching movies by list:', error);
     alert('Failed to fetch movies');

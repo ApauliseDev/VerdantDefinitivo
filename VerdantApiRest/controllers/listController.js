@@ -18,7 +18,7 @@ const createList = async (req, res) => {
 
 const getMoviesByListName = async (req, res) => {
   try {
-    const { userId, name } = req.body;
+    const { userId, name } = req.query;
     console.log(name)
     const movies = await listService.getMoviesByListName(userId, name);
     res.status(200).json(movies);
