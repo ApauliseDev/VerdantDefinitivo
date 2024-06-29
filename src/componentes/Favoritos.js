@@ -35,103 +35,98 @@ function Favoritos() {
   const IMAGE_PATH = 'https://image.tmdb.org/t/p/w500'
   const URL_IMAGE = 'https://image.tmdb.org/t/p/w500'
 
-  const { addToWatched, vistas, setVistas, removeFromVistas } = useContext(DataContext)
+
   const [envistas, setEnvistas] = useState(false)
   const [watchListOn, setwatchListOn] =useState(true)
   const [watchedListOn, setwatchedListOn] =useState(false)
   const [favoritesListOn, setfavoritesListOn] =useState(false)
-
+  
   const [porver, setPorver] = useState([]);
+ const [vistas, setVistas] = useState([]);
+ const [favoritas, setFavoritas] = useState([]);
 
 
-  useEffect(() => {
+
+
+   useEffect(() => {
     const fetchMovies = async () => {
-      const movies = await getMoviesByList('Por ver'); // Obtener películas de la lista "Por ver"
-      setPorver(movies);
+      if (watchListOn) {
+        const movies = await fetchMoviesByList('Por ver',setFavoritas);
+       setPorver(movies);
+      } else if (watchedListOn) {
+       const movies = await fetchMoviesByList('Vistas' ,setVistas);
+       setVistas(movies);
+     } else if (favoritesListOn) {
+        const movies = await fetchMoviesByList('Favoritas',setFavoritas);
+        setFavoritas(movies);
+      }
     };
 
-    fetchMovies();
-  }, []);
+   fetchMovies(); // Llama a la función fetchMovies inmediatamente al cargar el componente
 
-  const getMoviesByList = async (listName) => {
-    try {
-      const user = JSON.parse(localStorage.getItem('account')); // Asegúrate de que el objeto 'account' está en el localStorage
-      if (!user || !user.id) {
-        throw new Error('User is not logged in or userId is missing');
-      }
-      const userId = user.id;
+ }, [watchListOn, watchedListOn, favoritesListOn]); // Dependencias del useEffect
 
-      const response = await axios.get(`http://localhost:3001/api/lists/get-movies-by-list`, {
-        params: {
-          userId: userId,
-          name: listName,
-        }
-      });
 
-      const movies = response.data.movies;
-      let moviesWithDetails = [];
+const fetchMoviesByList = async (listName, setState) => {
 
-      for (let movie of movies) {
-          try {
-              const tmdbId = movie.tmdbId;
-              const response = await axios.get(`https://api.themoviedb.org/3/movie/${tmdbId}`, {
-                  params: {
-                      api_key: '0023db00b52250d5bed5debec71d21fb', // Reemplaza con tu propia API key de TMDB
-                      language: 'es', // Opcional: ajusta el idioma según prefieras
-                  },
-              });
   
-              // Procesar la respuesta de TMDB y guardar en la lista de películas con detalles
-              const movieDetails = response.data;
-              moviesWithDetails.push(movieDetails);
-          } catch (error) {
-              console.error(`Error al obtener detalles de la película con tmdbId `, error);
-              // Puedes manejar el error según sea necesario (por ejemplo, omitir esta película o registrar el error)
-          }
-      }
 
-      return moviesWithDetails;
-    } catch (error) {
-      console.error('Error fetching movies by list:', error);
-      alert('Failed to fetch movies');
-      return [];
+  try {
+    const user = JSON.parse(localStorage.getItem('account'));
+    if (!user || !user.id) {
+      throw new Error('User is not logged in or userId is missing');
     }
-  };
+    const userId = user.id;
 
-
-
-
-  const removeFromPorver = (movie) => {
-    const updater = [...porver]
-    updater.forEach((item, index) => {
-      if (item.id === movie.id) {
-        updater.splice(index, 1)
+    const response = await axios.get('http://localhost:3001/api/lists/get-movies-by-list', {
+      params: {
+        userId: userId,
+        name: listName,
       }
-      setPorver(updater)
-    })
-  }
+    });
 
+    const movies = response.data.movies;
+    let moviesWithDetails = [];
 
-  const addToWatchList = (movie) => {
-    const check = porver.every(item => {
-      return item.id !== movie.id
-    })
+    for (let movie of movies) {
+      try {
+        const tmdbId = movie.tmdbId;
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${tmdbId}`, {
+          params: {
+            api_key: '0023db00b52250d5bed5debec71d21fb',
+            language: 'es',
+          },
+        });
 
-    if (check) {
-      setPorver([...porver, movie])
-      alert("Great choice! :)")
-    } else {
-      alert("This movie is already added")
+        const movieDetails = response.data;
+        moviesWithDetails.push(movieDetails);
+      } catch (error) {
+        console.error('Error fetching movie details:', error);
+      }
     }
-  }
 
-  const handleWatchedOn = () =>{
+    setState(moviesWithDetails);
+  } catch (error) {
+    console.error('Error fetching movies by list:', error);
+    alert('Failed to fetch movies');
+  }
+};
+
+
+  
+
+
+
+
+
+
+  const handleWatchedListOn = () =>{
     setwatchedListOn(true);
     setwatchListOn(false);
     setfavoritesListOn(false)
   } 
 
-  const handleWatchlistOn = () =>{
+  const handleWatchListOn = () =>{
     setwatchListOn(true);
     setwatchedListOn(false);
     setfavoritesListOn(false);
@@ -147,112 +142,151 @@ function Favoritos() {
 
 
   return (
-    
     <div className='div-fav'>
       <Navegador items={elementosMenu} />
 
       <Box sx={{ flexGrow: 1, marginTop: 20, paddingLeft: 6, paddingRight: 6 }}>
         <div style={{ display: "flex", gap: "50px" }}>
+          {watchListOn && <h2 style={{ color: "#fff", fontFamily: "Cinzel Semibold" }}>My Watchlist</h2>}
+          {watchedListOn && <h2 style={{ color: "#fff", fontFamily: "Cinzel Semibold" }}>My WatchedList</h2>}
+          {favoritesListOn && <h2 style={{ color: "#fff", fontFamily: "Cinzel Semibold" }}>My Favorites</h2>}
 
+          <button
+            className='BotonWatched'
+            onClick={handleWatchListOn}
+            style={{ backgroundColor: watchListOn ? "#5bd635" : "transparent", transition: "background-color 0.3s" }}
+          >
+            Watchlist
+          </button>
 
-        { watchListOn ?  <h2 style={{ color: "#fff", fontFamily: "Cinzel Semibold" }}>My Watchlist</h2> : watchedListOn ? 
-        <h2 style={{ color: "#fff", fontFamily: "Cinzel Semibold" }}>My WatchedList</h2> : 
-        <h2 style={{ color: "#fff", fontFamily: "Cinzel Semibold" }}>My Favorites </h2> }
-         
-        <button className='BotonWatched'
-         onClick={handleWatchlistOn}  > Watchlist  </button>
-        <button className='BotonWatched'
-          onClick={handleWatchedOn}  > Watched  </button> 
-        <button className='BotonWatched'
-         onClick={handleFavoritesOn} 
-        > Favorites  </button>
+          <button
+            className='BotonWatched'
+            onClick={handleWatchedListOn}
+            style={{ backgroundColor: watchedListOn ? "#5bd635" : "transparent", transition: "background-color 0.3s" }}
+          >
+            Watched
+          </button>
+
+          <button
+            className='BotonWatched'
+            onClick={handleFavoritesOn}
+            style={{ backgroundColor: favoritesListOn ? "#5bd635" : "transparent", transition: "background-color 0.3s" }}
+          >
+            Favorites
+          </button>
         </div>
 
-          <Grid container spacing={0.1}>
-            {envistas ?
-              vistas.map((movie) => (
-                <Grid xs={6} md={4} lg={3} xl={2.4}>
-                  <Item className="img-grid">
-                    <Link
-                      key={movie.id}
-                      to={`/LayoutPeliculas/${movie.original_title}`}
-                      state={{ movieDetails: movie }}
-                    >
-                      <img
-                        src={`${URL_IMAGE + movie.poster_path}`}
-                        alt="guerra"
-                        style={{
-                          borderRadius: "16px",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      />
-                    </Link>
-                    <div style={{ display: "flex", position: "absolute" }}>
-                      <button
-                        style={{ border: "none", background: "none", position: "relative" }}
-                        id="boton-poster"
-                        onClick={() => {
-                          removeFromVistas(movie)
-                        }}
-                      > {<RemoveCircleOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />}</button>
+        <Grid container spacing={0.1}>
+          {watchListOn && porver.map((movie) => (
+            <Grid xs={6} md={4} lg={3} xl={2.4}>
+              <Item className="img-grid">
+                <Link
+                  key={movie.id}
+                  to={`/LayoutPeliculas/${movie.original_title}`}
+                  state={{ movieDetails: movie }}
+                >
+                  <img
+                    src={`${URL_IMAGE + movie.poster_path}`}
+                    alt="guerra"
+                    style={{
+                      borderRadius: "16px",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </Link>
+                <div style={{ display: "flex", position: "absolute" }}>
+                  <button
+                    style={{ border: "none", background: "none", position: "relative" }}
+                    id="boton-poster"
+                    // onClick={() => removeFromList(movie, 'Por ver')}
+                  >
+                    <RemoveCircleOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
+                  </button>
+                  <button
+                    style={{ border: "none", background: "none", position: "relative" }}
+                    id="boton-poster"
+                    // onClick={() => addToList(movie, 'Vistas')}
+                  >
+                    <RemoveRedEyeIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
+                  </button>
+                </div>
+              </Item>
+            </Grid>
+          ))}
 
-                      <button
-                        style={{ border: "none", background: "none", position: "relative" }}
-                        id="boton-poster"
-                        onClick={() => {
-                          addToWatchList(movie)
+          {watchedListOn && vistas.map((movie) => (
+            <Grid xs={6} md={4} lg={3} xl={2.4}>
+              <Item className="img-grid">
+                <Link
+                  key={movie.id}
+                  to={`/LayoutPeliculas/${movie.original_title}`}
+                  state={{ movieDetails: movie }}
+                >
+                  <img
+                    src={`${URL_IMAGE + movie.poster_path}`}
+                    alt="guerra"
+                    style={{
+                      borderRadius: "16px",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </Link>
+                <div style={{ display: "flex", position: "absolute" }}>
+                  <button
+                    style={{ border: "none", background: "none", position: "relative" }}
+                    id="boton-poster"
+                    // onClick={() => removeFromList(movie, 'Vistas')}
+                  >
+                    <RemoveCircleOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
+                  </button>
+                  <button
+                    style={{ border: "none", background: "none", position: "relative" }}
+                    id="boton-poster"
+                    // onClick={() => addToList(movie, 'Favoritas')}
+                  >
+                    <StarOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
+                  </button>
+                </div>
+              </Item>
+            </Grid>
+          ))}
 
-                        }}
-                      > {<RemoveRedEyeIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />}</button> </div>
-                  </Item>
-                </Grid>
-              ))
-              : porver ? porver.map((movie) => (
-                <Grid xs={6} md={4} lg={3} xl={2.4}>
-                  <Item className="img-grid">
-                    <Link
-                      key={movie.id}
-                      to={`/LayoutPeliculas/${movie.original_title}`}
-                      state={{ movieDetails: movie }}
-                    >
-                      <img
-                        src={`${URL_IMAGE + movie.poster_path}`}
-                        alt="guerra"
-                        style={{
-                          borderRadius: "16px",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      />
-                    </Link>
-                    <div style={{ display: "flex", position: "absolute" }}>
-                      <button
-                        style={{ border: "none", background: "none", position: "relative" }}
-                        id="boton-poster"
-                        onClick={() => {
-                          removeFromPorver(movie)
-                        }}
-                      > {<RemoveCircleOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />}</button>
-
-                      <button
-                        style={{ border: "none", background: "none", position: "relative" }}
-                        id="boton-poster"
-                        onClick={() => {
-                          addToWatched(movie)
-                        }}
-
-                    > {<RemoveRedEyeIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />}</button> </div>
-
-                  </Item>
-                </Grid>
-              )) : null
-            }
-          </Grid>
-        </Box>
-      </div>
-    
-  )
+          {favoritesListOn && favoritas.map((movie) => (
+            <Grid xs={6} md={4} lg={3} xl={2.4}>
+              <Item className="img-grid">
+                <Link
+                  key={movie.id}
+                  to={`/LayoutPeliculas/${movie.original_title}`}
+                  state={{ movieDetails: movie }}
+                >
+                  <img
+                    src={`${URL_IMAGE + movie.poster_path}`}
+                    alt="guerra"
+                    style={{
+                      borderRadius: "16px",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </Link>
+                <div style={{ display: "flex", position: "absolute" }}>
+                  <button
+                    style={{ border: "none", background: "none", position: "relative" }}
+                    id="boton-poster"
+                    // onClick={() => removeFromList(movie, 'Favoritas')}
+                  >
+                    <RemoveCircleOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
+                  </button>
+                </div>
+              </Item>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </div>
+  );
 }
 
 export default Favoritos
