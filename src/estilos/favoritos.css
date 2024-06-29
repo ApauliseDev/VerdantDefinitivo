@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Cinzel bold';
+  src: url('../fonts/Cinzel/Cinzel-Bold.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+  
+@font-face {
+  font-family: 'Cinzel regular';
+  src: url('../fonts/Cinzel/Cinzel-Regular.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+@font-face {
+  font-family: 'Cinzel semibold';
+  src: url('../fonts/Cinzel/Cinzel-SemiBold.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+.div-fav-main{
+  height: 100vh;
+}
+
+.div-fav{
+  height: 100%;
+  margin-bottom: 5%;
+}
+
+.BotonWatched{
+  background: none;
+  border: solid 2px #5bd635;
+  width: 200px;
+  font-size: 20px;
+  border-radius: 32px;
+  padding: 3px;
+  font-family: "Cinzel Semibold";
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 5%;
+}

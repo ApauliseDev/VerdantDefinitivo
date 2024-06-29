@@ -1,0 +1,18 @@
+*html{
+margin: 0;
+
+
+
+}
+.app{
+    display: flex;
+    align-content: space-around;
+    flex-direction: column;
+    background:  linear-gradient(to bottom,#000002,#122B0F, #3D9133);
+}
+
+
+Footer{
+  height: 1000px;
+
+}

@@ -1,0 +1,212 @@
+
+  @font-face {
+    font-family: 'Cinzel bold';
+    src: url('../fonts/Cinzel/Cinzel-Bold.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+    
+  @font-face {
+    font-family: 'Cinzel regular';
+    src: url('../fonts/Cinzel/Cinzel-Regular.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+
+  @font-face {
+    font-family: 'Cinzel semibold';
+    src: url('../fonts/Cinzel/Cinzel-SemiBold.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+
+
+.contenedor-titulo-peliculas{
+    font-family: "Cinzel bold";
+    margin-left: 60px;
+    color: #fff;
+    font-size: 10px;
+    margin-top: 150px; 
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+
+
+
+.contenedor-titulo-peliculas div{
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+}
+
+
+
+.contenedor-titulo-peliculas button{
+  background:transparent;
+  border: solid 2px #5bd635;
+  width: 200px;
+  font-size: 20px;
+  border-radius: 32px;
+  padding: 3px;
+  font-family: "Cinzel Semibold";
+  font-weight: 700;
+  color: antiquewhite;
+  transition:  0.3s ease ; /* Agregamos transición al cambio de fondo */
+}
+
+
+.contenedor-titulo-peliculas button::before{
+  background: transparent;
+
+
+}
+.contenedor-titulo-peliculas button::after{
+  background-color: #5bd635;
+
+
+}
+
+.contenedor-titulo-peliculas button:hover{
+  background-color: #5bd635;
+}
+
+/* ----- BUSCADOR ----- */
+
+.input-busqueda {
+  height: 100px;
+  font-weight: 700;
+  width: 99%;
+  font-size: 20px;
+  border: none;
+  margin-top: 20px;
+  padding: 20px;
+  margin: 4%;
+  font-size: 40px;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con opacidad */
+  color: #5bd635; /* Color de las letras del placeholder */
+  transition: border-color 0.3s ease; /* Transición para el borde */
+  box-shadow: 2px 1px 2px 2px #5bd635; /* Sombra verde */
+}
+
+@media screen and (max-width: 1200px) {
+  .input-busqueda {
+    font-size: 30px;
+    height: 80px;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .input-busqueda {
+    font-size: 25px;
+    height: 60px;
+  }
+}
+
+.input-busqueda:hover {
+  border: solid 1px #5bd635; /* Cambia el borde al enfocar el input */
+}
+
+.input-busqueda:focus {
+  border: solid 1px #5bd635; /* Cambia el borde al enfocar el input */
+}
+
+#BotonesGeneros.active {
+  background-color: #5bd635;
+}
+
+
+.load-buttons button{
+  background: linear-gradient(to right, #52A13B, #123D05); 
+  font-family: 'Cinzel Bold';
+  font-size: 15px;
+  padding: 6px;
+  font-weight: 700;
+  border-radius: 16px;
+  border: none;
+  color: antiquewhite;
+
+
+
+}
+
+.img-grid{
+  box-shadow: none !important;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+
+#boton-poster {
+  display: none;
+ margin-right: 15px;
+ margin-bottom: 15px;
+ font-size: 18px;
+ position:absolute;
+ color: white;
+ background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con opacidad */
+ border: solid 2px #5bd635;
+ padding: 5px 10px; /* Espaciado interno */
+ transition: background-color 0.5s; /* Transición suave al cambiar el color de fondo */
+ z-index: 1;
+ opacity: 0;
+ transition: opacity 0.9s;
+
+}
+.img-grid:hover #boton-poster{
+  display: block;
+  opacity: 1;
+}
+
+#boton-poster:hover {
+  background-color: rgba(0, 128, 0, 0.5);
+}
+
+.img-grid img{
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important; /* Transición suave para transformaciones y sombra */
+}
+
+.img-grid img:hover{
+      transition: 0.2s !important;
+      box-shadow: 0 0 100px rgba(0, 0, 0, 0.5); /* Añade una sombra brillante alrededor de la imagen */
+      outline: 3px solid white;
+      outline-offset: 3px ;
+      transform: scale(
+        1.03
+      ); 
+}
+
+#demo-customized-button{
+  border-radius: 16px;
+  background: linear-gradient(to right, #52A13B, #123D05); 
+  font-family: "Cinzel semibold";
+
+}
+
+.overlay-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 0; 
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5); 
+  color: white;
+  font-size: 18px; 
+  padding: 5px;
+  border-radius: 0 0 16px 16px; 
+}

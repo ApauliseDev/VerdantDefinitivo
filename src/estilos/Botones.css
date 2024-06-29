@@ -1,0 +1,58 @@
+
+@font-face {
+  font-family: 'Dokdo';
+  src: url('../fonts/Dokdo/Dokdo-Regular.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+@font-face {
+  font-family: 'Cinzel bold';
+  src: url('../fonts/Cinzel/Cinzel-Bold.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+  
+@font-face {
+  font-family: 'Cinzel regular';
+  src: url('../fonts/Cinzel/Cinzel-Regular.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+@font-face {
+  font-family: 'Cinzel semibold';
+  src: url('../fonts/Cinzel/Cinzel-SemiBold.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+
+.boton-registrarse {
+    font-family: 'Cinzel bold';
+    background: linear-gradient(to right, #52A13B, #123D05); /* Cambia los valores de color según sea necesario */
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    font-size: 15px;
+    width: 250px;
+    margin-right: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background none ease-in-out !important; 
+    
+  }
+
+  .boton-registrarse button{
+    align-self: flex-end !important;
+  }
+  
+  .boton-registrarse:hover {
+    /* Estilo al pasar el mouse */
+
+    transition: background 12s !important; 
+    background: linear-gradient(to left, #52A13B, #123D05); /* Cambia los valores de color según sea necesario */
+}
+
+@media screen and (max-width: 1400px){
+  .boton-registrarse{
+    font-size: 15px;
+    width: 200px;
+  }
+}

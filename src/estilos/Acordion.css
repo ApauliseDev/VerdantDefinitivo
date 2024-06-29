@@ -1,0 +1,96 @@
+
+@font-face {
+  font-family: 'Dokdo';
+  src: url('../fonts/Dokdo/Dokdo-Regular.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+@font-face {
+  font-family: 'Cinzel bold';
+  src: url('../fonts/Cinzel/Cinzel-Bold.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+  
+@font-face {
+  font-family: 'Cinzel regular';
+  src: url('../fonts/Cinzel/Cinzel-Regular.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+@font-face {
+  font-family: 'Cinzel semibold';
+  src: url('../fonts/Cinzel/Cinzel-SemiBold.ttf') format('truetype');
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+
+
+#AcordionContainer{
+  display: flex;
+  justify-content: center;
+  background-color: #3D9133;
+
+}
+.accordionWidth{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0px;
+  margin: 20px 20px;
+  overflow: hidden;
+}
+
+
+
+#border-c{
+  width: 90%;
+  background-color: #3D9133;
+  border-color: #3D9133;
+  border: none;
+  margin-right: 10%;
+  margin-left: 10%;
+  padding: 1px;
+}
+
+#card-head {
+  font-size: 20px;
+  width: auto;
+  display: flex;
+  height: 70px;
+  align-items: center;
+  font-family: "Cinzel bold";
+  border: none;
+}
+
+#cuerpo{
+  font-family:  'Cinzel semibold';
+  font-size: 17px;
+  background-color:rgb(36, 69, 29);
+  color: #fff;
+}
+
+#FAQ h2 {
+  font-family:'Cinzel bold'; 
+  color: antiquewhite;
+  font-size: 40px;
+}
+
+@media screen and (max-width: 1280px){
+  #card-head {
+    font-size: 15px;
+  }
+
+  #cuerpo{
+    font-size: 13px;
+  }
+}
+
+
+@media screen  and (max-width:550px){
+  #FAQ h2 {
+    font-size: 30px !important ;
+  }
+  
+}

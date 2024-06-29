@@ -1,0 +1,21 @@
+.boton-registrarse {
+    font-family: 'Cinzel';
+    background-color: #53a13bae;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+    border: none;
+    transition: 0.3s;
+    font-size: 20px;
+    margin-right: 25px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  
+  .boton-registrarse:hover {
+    /* Estilo al pasar el mouse */
+    background-color: #53a13b;
+    transform: scale(1.1);
+  }

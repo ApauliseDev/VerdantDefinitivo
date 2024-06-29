@@ -1,0 +1,69 @@
+@font-face {
+    font-family: 'Cinzel bold';
+    src: url('../fonts/Cinzel/Cinzel-Bold.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+    
+  @font-face {
+    font-family: 'Cinzel regular';
+    src: url('../fonts/Cinzel/Cinzel-Regular.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+  
+  @font-face {
+    font-family: 'Cinzel semibold';
+    src: url('../fonts/Cinzel/Cinzel-SemiBold.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+
+.container-MyAccount{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color:rgb(255, 255, 255);
+    height: 100vh;
+}
+
+.esqueleto{
+    display: flex;
+    margin: 20px;
+}
+
+.contenerdor-spanUno{
+    margin-top: 25px;
+    margin-right: 50px;
+    margin-left: 50px;
+
+}
+
+h2{
+    font-family: 'Cinzel semibold';
+}
+
+.parrafo-span{
+    background-color: #0400007e;
+    color: #5bd635;
+    padding: 10px;
+    width: 500px;
+    border-radius: 3px;
+    border: 2px solid #5bd635;
+    font-family: 'Cinzel regular';
+}
+
+.titulo-Account{
+    text-decoration: underline;
+    font-family: 'Cinzel bold';
+}
+
+@media screen and (max-width: 1300px) {
+    .parrafo-span{
+        width: 350px;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .parrafo-span{
+        width: 300px;
+    }
+}

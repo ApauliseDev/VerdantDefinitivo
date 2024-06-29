@@ -1,0 +1,110 @@
+
+
+
+  @font-face {
+    font-family: 'Dokdo';
+    src: url('../fonts/Dokdo/Dokdo-Regular.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+  
+  @font-face {
+    font-family: 'Cinzel bold';
+    src: url('../fonts/Cinzel/Cinzel-Bold.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+    
+  @font-face {
+    font-family: 'Cinzel regular';
+    src: url('../fonts/Cinzel/Cinzel-Regular.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+
+  @font-face {
+    font-family: 'Cinzel semibold';
+    src: url('../fonts/Cinzel/Cinzel-SemiBold.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+
+
+
+.contenedor {
+    background: linear-gradient(to bottom, #001100,#001100,  #000); /* Define el degradado inicial */
+    display: flex;
+    height: 300px ;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+
+
+
+
+    
+}
+
+.titulo {
+font-weight: bold;
+color: #5AD635;
+font-family: Cincel;
+font-size: 50px;
+font-family: 'Cinzel bold';
+}
+
+.recursos {
+    color: aliceblue;
+    justify-content: space-around;
+    display: flex;
+    font-family: 'Cinzel regular';
+  
+
+
+}
+
+.recursos_items{
+    padding: 20px;
+    font-size: 20px;
+
+}
+
+
+
+.copyright{
+    font-family: 'Cinzel semibold';
+    color: aliceblue;
+    font-size: 15px;
+
+}
+
+@media screen and (max-width: 992px) {
+  .recursos_items{
+    font-size: 16px;
+
+  }
+}
+
+
+@media screen and (max-width: 814px) {
+  .recursos_items{
+    padding: 0;
+    font-size: 16px;
+
+  }
+
+  .recursos{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .titulo{
+    font-size: 40px ;
+    }
+
+}
+
+
+@media screen and (max-width: 410) { 
+  .copyright {
+    font-size: 13px;
+  }
+
+}

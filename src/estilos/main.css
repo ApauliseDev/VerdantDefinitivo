@@ -1,0 +1,145 @@
+@font-face {
+  font-family: "Cinzel bold";
+  src: url("../fonts/Cinzel/Cinzel-Bold.ttf") format("truetype");
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+@font-face {
+  font-family: "Cinzel regular";
+  src: url("../fonts/Cinzel/Cinzel-Regular.ttf") format("truetype");
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+@font-face {
+  font-family: "Cinzel semibold";
+  src: url("../fonts/Cinzel/Cinzel-SemiBold.ttf") format("truetype");
+  /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+}
+
+.maincontenedor {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: linear-gradient(
+    to bottom,
+    #000002,
+    #122b0f,
+    #3d9133
+  ); /* Define el degradado inicial */
+  flex-direction: column;
+}
+
+.listamain {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin-right: 10px;
+  object-fit: contain;
+  margin-bottom: 5%;
+}
+
+.listamain li {
+  padding: 10px; /* Ajusta el margen entre cada elemento de la lista */
+  border-radius: 10px;
+}
+
+.listamain li img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para transformaciones y sombra */
+  width: 156px; /* Ajusta el tamaño de las imágenes según sea necesario */
+  max-width: 100%;
+  object-fit: cover;
+  height: 231px; /* Mantiene la proporción de aspecto de las imágenes */
+}
+
+.listamain li img:hover {
+  transform: scale(
+    1.2
+  ); 
+  transition: 0.3s;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.5); /* Añade una sombra brillante alrededor de la imagen */
+  outline: 2px solid white;
+  outline-offset: 3px ;
+}
+
+.intermedio {
+  font-family: "Cinzel semibold";
+  color: antiquewhite;
+  margin-left: 10px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  justify-items: center;
+  background-color: #001100 !important;
+  padding: 20px;
+  margin: 10px;
+  width: 336px;
+  height: 102px;
+  color: #3D9133 !important;
+  font-family: "Cinzel bold";
+}
+
+@media screen and (max-width: 1088px){
+  .listamain{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .intermedio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    padding: 20px;
+    margin: 10px;
+    width: 280px;
+    height: 90px;
+    color: #5ad635 !important;
+    font-family: "Cinzel bold";
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 920px){
+  .card {
+    width: 250px;
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 992px){
+  .navbar-collapse button{
+    display: none !important;
+  }
+
+
+
+}
+
+@media screen and (max-width: 830px){
+  .card {
+    width: 220px;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 740px){
+  .card {
+    width: 350px;
+    font-size: 17px;
+  }
+  .card-container{
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+}

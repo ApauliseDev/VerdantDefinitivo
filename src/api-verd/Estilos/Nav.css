@@ -1,0 +1,64 @@
+.navbar {
+    position: absolute;
+    top: 0; /* Ajusta la posición vertical según sea necesario */
+    left: 0;
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .nombre-web {
+    font-size: 40px;
+    font-weight: bold;
+    color: #5AD635;
+    margin-left: 5px;
+    text-decoration: none;
+  }
+  
+.link { 
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    margin: 0 2.5rem;
+    font-size: large;
+  }
+  
+.link::before, 
+.link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2.5px; /* Grosor del subrayado */
+    background-color: #53a13b; /* Color del subrayado */
+    transition: width 0.3s ease-in-out; /* Transición del subrayado */
+}
+
+.link::before {
+    right: 100%;
+}
+
+.link:hover::before, 
+.link:hover::after {
+    width: 100%; /* Ancho del subrayado al hacer hover */
+}
+
+  @media screen and  (max-width: 992px) {
+    .boton-nav{
+      display: none;
+    }
+    .link{
+      position: relative;
+      text-decoration: none;
+      color: #fff;
+      margin: 0 0.5rem;
+      font-size: large;
+    }
+    .nombre-web{
+      font-size: 30px;
+    }
+  }

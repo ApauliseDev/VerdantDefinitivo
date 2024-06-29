@@ -1,0 +1,22 @@
+#img-paper {
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important; /* Transición suave para transformaciones y sombra */
+    cursor: pointer;
+
+
+}
+
+#Paper-id:hover{
+      transition: 0.2s !important;
+      box-shadow: 0 0 100px rgba(0, 0, 0, 0.5); /* Añade una sombra brillante alrededor de la imagen */
+      outline: 3px solid white;
+      outline-offset: 3px ;
+      transform: scale(
+        1.03
+      ); 
+}
+
+.link-papers{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'Cinzel bold';
+    src: url('../fonts/Cinzel/Cinzel-Bold.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+    
+  @font-face {
+    font-family: 'Cinzel regular';
+    src: url('../fonts/Cinzel/Cinzel-Regular.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+  
+  @font-face {
+    font-family: 'Cinzel semibold';
+    src: url('../fonts/Cinzel/Cinzel-SemiBold.ttf') format('truetype');
+    /* Agrega otras propiedades de fuente según sea necesario, como font-weight y font-style */
+  }
+
+.fondoNav{
+    background-color: #00000050;
+}
+
+.nombre-web {
+    font-size: 40px;
+    font-weight: bold;
+    color: #5bd635;
+    margin-left: 5px;
+    text-decoration: none;
+    font-family: 'Cinzel semibold';
+    
+  }
+
+  .link { 
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    margin: 0 2rem;
+    font-size: large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cinzel semibold';
+  }
+
+.link::before, 
+.link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2.5px; /* Grosor del subrayado */
+    background-color: #53a13b; /* Color del subrayado */
+    transition: width 0.3s ease-in-out; /* Transición del subrayado */
+}
+
+.link::before {
+    right: 100%;
+}
+
+.link:hover::before, 
+.link:hover::after {
+    width: 100%; /* Ancho del subrayado al hacer hover */
+}
+
+
