@@ -27,7 +27,28 @@ const getMoviesByListName = async (req, res) => {
   }
 };
 
+
+
+const addToList = async (req, res) => {
+  const { userId, tmdbId, toListName } = req.body;
+  console.log(userId)
+  console.log(tmdbId)
+  console.log(toListName)
+  
+  
+
+  try {
+    await listService.addToList(userId, tmdbId, toListName);
+    res.status(200).send('Movie added to list successfully');
+  } catch (error) {
+    console.error('Error adding movie to list:', error);
+    res.status(500).send('Error adding movie to list');
+  }
+};
+
+
 module.exports = {
   getMoviesByListName,
-  createList
+  createList,
+  addToList
 };

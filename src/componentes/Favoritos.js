@@ -14,6 +14,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "transparent",
   ...theme.typography.body2,
@@ -93,7 +94,7 @@ const fetchMoviesByList = async (listName, setState) => {
         const response = await axios.get(`https://api.themoviedb.org/3/movie/${tmdbId}`, {
           params: {
             api_key: '0023db00b52250d5bed5debec71d21fb',
-            language: 'es',
+            language: 'en',
           },
         });
 
@@ -113,6 +114,61 @@ const fetchMoviesByList = async (listName, setState) => {
   }
 };
 
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+const removeFromList = async (movie, listName) => {
+  try {
+    const user = JSON.parse(localStorage.getItem('account'));
+    if (!user || !user.id) {
+      throw new Error('User is not logged in or userId is missing');
+    }
+    const userId = user.id;
+    await axios.delete('http://localhost:3001/api/movies/delete', {
+      data: {
+        userId: userId,
+        tmdbId: movie.id,
+        listName: listName,
+      }
+    });
+
+    // Refetch movies to update the UI
+    await fetchMoviesByList(listName, listName === 'Por ver' ? setPorver : listName === 'Vistas' ? setVistas : setFavoritas);
+
+  } catch (error) {
+    console.error('Error removing movie from list:', error);
+    alert('Failed to remove movie from list');
+  }
+};
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+const moveMovieToList = async (movie, fromList, toList) => {
+  try {
+    const user = JSON.parse(localStorage.getItem('account'));
+    if (!user || !user.id) {
+      throw new Error('User is not logged in or userId is missing');
+    }
+    const userId = user.id;
+    const tmdbId = movie.id;
+
+    const response = await fetch('http://localhost:3001/api/movies/addToList', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId, tmdbId,fromList,toList }),
+    });
+
+    // Refrescar las listas después de mover la película
+    fetchMoviesByList('Por ver', setPorver);
+    fetchMoviesByList('Vistas', setVistas);
+    fetchMoviesByList('Favoritas', setFavoritas);
+  } catch (error) {
+    console.error('Error moving movie:', error);
+    alert('Failed to move movie');
+  }
+};
 
   
 
@@ -200,14 +256,15 @@ const fetchMoviesByList = async (listName, setState) => {
                   <button
                     style={{ border: "none", background: "none", position: "relative" }}
                     id="boton-poster"
-                    // onClick={() => removeFromList(movie, 'Por ver')}
+                     onClick={() => removeFromList(movie, 'Por ver')}
+                     
                   >
                     <RemoveCircleOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
                   </button>
                   <button
                     style={{ border: "none", background: "none", position: "relative" }}
                     id="boton-poster"
-                    // onClick={() => addToList(movie, 'Vistas')}
+                    onClick={() => moveMovieToList(movie, 'Por ver','Vistas ')}
                   >
                     <RemoveRedEyeIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
                   </button>
@@ -238,17 +295,18 @@ const fetchMoviesByList = async (listName, setState) => {
                   <button
                     style={{ border: "none", background: "none", position: "relative" }}
                     id="boton-poster"
-                    // onClick={() => removeFromList(movie, 'Vistas')}
+                    onClick={() => removeFromList(movie, 'Vistas')}
                   >
                     <RemoveCircleOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
                   </button>
                   <button
                     style={{ border: "none", background: "none", position: "relative" }}
                     id="boton-poster"
-                    // onClick={() => addToList(movie, 'Favoritas')}
+                     onClick={() => moveMovieToList(movie,"Vistas","Favoritas",)}
                   >
                     <StarOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
                   </button>
+                  
                 </div>
               </Item>
             </Grid>
@@ -276,10 +334,11 @@ const fetchMoviesByList = async (listName, setState) => {
                   <button
                     style={{ border: "none", background: "none", position: "relative" }}
                     id="boton-poster"
-                    // onClick={() => removeFromList(movie, 'Favoritas')}
+                    onClick={() => removeFromList(movie, 'Favoritas')}
                   >
                     <RemoveCircleOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
                   </button>
+            
                 </div>
               </Item>
             </Grid>

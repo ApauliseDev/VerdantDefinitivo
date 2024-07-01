@@ -36,42 +36,77 @@ function PelisGrid() {
   // Watchlist
   const { porver, setPorver } = useContext(DataContext);
 
+  // const addToWatchList = async (movie) => {
+  //   try {
+  //     // Obtener el userId desde el contexto o el almacenamiento local
+  //     const user = JSON.parse(localStorage.getItem('account')); // Asegúrate de que el objeto 'account' está en el localStorage
+  //     if (!user || !user.id) {
+  //       throw new Error('User is not logged in or userId is missing');
+  //     }
+  //     const userId = user.id;
+  //     console.log( "Bolivia:" +userId)
+  
+  //     // Obtener el listId
+  //     const listResponse = await axios.get('http://localhost:3001/api/lists/getListId', {
+  //       params: {
+  //         userId: userId,
+  //         name: 'Por ver', // El nombre de la lista
+  //       }
+  //     });
+  
+  //     const listId = listResponse.data.listId;
+  //     console.log(listId + "Anashe")  
+  //     // Agregar la película a la lista
+  //     const response = await axios.post('http://localhost:3001/api/movies/addToList', {
+  //       listId,
+  //       tmdbId: movie.id,
+  //       title: movie.title,
+  //     });
+  
+  //     if (response.status === 201) {
+  //       alert("Great choice! :)");
+  //       setPorver([...porver, movie]); // Actualiza el estado local
+  //     } else {
+  //       alert("This movie is already added");
+  //     }
+  //   } catch (error) {
+  //     console.error('Error adding movie to watchlist:', error);
+  //     alert('Failed to add movie');
+  //   }
+  // };
+
+
+
   const addToWatchList = async (movie) => {
+    const user = JSON.parse(localStorage.getItem('account'));
+    if (!user || !user.id) {
+      throw new Error('User is not logged in or userId is missing');
+    }
+    const userId = user.id;
+    const tmdbId = movie.id;
+    const toList = 'Por ver'
     try {
-      // Obtener el userId desde el contexto o el almacenamiento local
-      const user = JSON.parse(localStorage.getItem('account')); // Asegúrate de que el objeto 'account' está en el localStorage
-      if (!user || !user.id) {
-        throw new Error('User is not logged in or userId is missing');
-      }
-      const userId = user.id;
-      console.log( "Bolivia:" +userId)
+
+     
+      const response = await axios.post('http://localhost:3001/api/lists/add-to-list', {
+      userId,
+      tmdbId,
+      toListName: toList,
+    });
+
   
-      // Obtener el listId
-      const listResponse = await axios.get('http://localhost:3001/api/lists/getListId', {
-        params: {
-          userId: userId,
-          name: 'Por ver', // El nombre de la lista
-        }
-      });
+
   
-      const listId = listResponse.data.listId;
-      console.log(listId + "Anashe")  
-      // Agregar la película a la lista
-      const response = await axios.post('http://localhost:3001/api/movies/addToList', {
-        listId,
-        tmdbId: movie.id,
-        title: movie.title,
-      });
-  
-      if (response.status === 201) {
-        alert("Great choice! :)");
-        setPorver([...porver, movie]); // Actualiza el estado local
+      if (response.status === 200) {
+        console.log('Movie added to watchlist successfully');
+        alert('Movie added to watchlist successfully');
       } else {
-        alert("This movie is already added");
+        console.error('Failed to add movie to watchlist');
+        alert('Failed to add movie to watchlist');
       }
     } catch (error) {
       console.error('Error adding movie to watchlist:', error);
-      alert('Failed to add movie');
+      alert('Error adding movie to watchlist');
     }
   };
   // Filtrar por género
