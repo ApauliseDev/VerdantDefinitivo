@@ -268,6 +268,13 @@ const moveMovieToList = async (movie, fromList, toList) => {
                   >
                     <RemoveRedEyeIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
                   </button>
+                  <button
+                    style={{ border: "none", background: "none", position: "relative" }}
+                    id="boton-poster"
+                     onClick={() => moveMovieToList(movie,"Por ver","Favoritas",)}
+                  >
+                    <StarOutlineIcon style={{ border: "none", color: "#5AD635", fontSize: "50px" }} />
+                  </button>
                 </div>
               </Item>
             </Grid>
